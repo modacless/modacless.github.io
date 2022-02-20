@@ -10,7 +10,7 @@ navbar_entries:
 
 project_entries:
   - title: Shunader
-    url: shunader-post
+    url: shunader-post.html
     desc: game about crusader
 
   - title: Project 2
