@@ -1,4 +1,4 @@
-title: Portefolio
+title: Portfolio
 author: Oses Jean-Baptiste
 url: https://modacless.github.io/
 description: > # description of the site (multiple lines allowed)
@@ -27,10 +27,10 @@ theme_config:
   show_misc_list: false # show generic vertical list for misc details, add _data/home.yml
   # options for "home" page
   home:
-    title_projects: Portfolio
+    title_projects: Jeux-video
     title_misc_list: Details
     title_blog: Blog
-    title_old_projects: Old Projects
+    title_old_projects: Autres projects
 
 soopr:
   publish_token: "" # sign up at https://www.soopr.co to get your publish token and personalize share and reaction options
