@@ -2,7 +2,7 @@
 layout: post
 ---
 
-![theme logo] (https://modacless.github.io/images/OverStrike/overstrikeArena.png)
+![theme logo](https://modacless.github.io/images/OverStrike/overstrikeArena.png)
 
 ## Introduction
 
