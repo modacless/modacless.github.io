@@ -23,16 +23,18 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ## Techniques
 
-1. Mirror, et smooth network Transform[^1]
-2. Lobby[^2]
-3. Management d'un match[^3]
-4. Tools d'analyse[^4]
+1. Mirror, et smooth network Transform [^1]
+2. Lobby [^2]
+3. Management d'un match [^3]
+4. Tools d'analyse [^4]
 
-## Mirror [^1]
+[^1]:
+## Mirror
 
-Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, et me permettant d'acquérir une compréhension sur les API réseaux de haut niveaux. Mon choix c'est porté sur Mirror, une API gratuite et open source
 
-[Mirror](https://mirror-networking.com/)
+Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, et me permettant d'acquérir une compréhension sur les API réseaux de haut niveaux. Mon choix c'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source
+
+
 
 
 
