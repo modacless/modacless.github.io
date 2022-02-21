@@ -4,6 +4,8 @@ layout: post
 
 ![theme logo](https://modacless.github.io/images/OverStrike/overstrikeArena.png)
 
+---
+
 ## Introduction
 
 Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affrontent dans une arène avec un "punch", afin d'expulser leurs adversaires, et de marquer un but.
@@ -33,7 +35,7 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ## Mirror :
 
-Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, et me permettant d'acquérir une compréhension sur les API réseaux de haut niveaux. Mon choix c'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source
+Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveaux. Mon choix c'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source
 
 
 
