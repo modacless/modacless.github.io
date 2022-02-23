@@ -39,10 +39,13 @@ Pour ma première expérience dans le monde du multijoueur online, je voulais ap
 
 Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouter une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleurs coustomisation, et de meilleurs performance sur la position des objets "onlines".
 
+Le jeux va donc utiliser une structure server/client, ou le client possède l'authorité, et le server est un joueur, qui joue comme les autres clients.
+
 ## Lobby :
 
-Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier.
-L'objectif du loby dans notre jeu était de pouvoir voir le pseudo des autres joueurs, et de pouvoir se mettre ready, pour lancer la partie.
+Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier. Le joueur décidant d'héberger, va attendre que les joueurs se connectent au server.
+
+L'objectif du lobby dans notre jeu était de pouvoir voir le pseudo des autres joueurs, et de pouvoir se mettre "prêt", pour lancer la partie.
 
 Quand un joueur se connecte au server, il lui envoi un message contenant son pseudo.
 ```c#
@@ -62,7 +65,7 @@ public override void OnClientConnect(NetworkConnection conn)//Quand le client se
     }
 ```
 
-Le server le reçoit, il créer un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créer que par le serveur). Le serveur met ensuite à jours, sa liste interne des joueurs connecté au loby, très utile pour vérifier quand les joueurs seront prêts.
+Le server le reçoit, il crée un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créer que par le serveur), il l'identifie ensuite en tant que joueur, et le lie à une connection. Le serveur met ensuite à jours, sa liste interne des joueurs connecté au lobby, très utile pour vérifier quand les joueurs seront prêts.
 
 ```c#
  private void CreateClientFromServer(NetworkConnection conn, MyNewNetworkAuthenticator.ClientConnectionMessage msg)
@@ -70,7 +73,7 @@ Le server le reçoit, il créer un gameObject représentant le joueur, et lui tr
         if (conn.clientOwnedObjects.Count < 1) // Débug quand le joueur se connecte à un server qui n'existe pas, et ensuite host
         {
             GameObject obj = Instantiate(lobbyPlayer);
-            obj.GetComponent<LobbyPlayerLogic>().clientPseudo = msg.pseudo; //Créer le joueur loby 
+            obj.GetComponent<LobbyPlayerLogic>().clientPseudo = msg.pseudo; //Créer le joueur lobby 
             obj.transform.position = new Vector3(0, 0, 0); // Peut importe la position, une fois le jeu lancé, le joueur est placé au spawn
             NetworkServer.AddPlayerForConnection(conn, obj);
             AddToServerArray(obj);
@@ -79,6 +82,13 @@ Le server le reçoit, il créer un gameObject représentant le joueur, et lui tr
     } //Spawn l'objet lobbyPlayer et configure le server
 
 ```
+Le gameobject représentant un joueur, possède un networkTransform, ce qui lui permet mettre à jour sa position tout seul à travers le réseau.
+
+![theme logo](images\OverStrike\CaptureLobbyPlayer.PNG)
+
+On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisible par tout le monde.
+
+![theme logo](images\OverStrike\CaptureLobby.PNG)
 
 
 
