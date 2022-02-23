@@ -44,6 +44,26 @@ Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécan
 Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier.
 L'objectif du loby dans notre jeu était de pouvoir voir le pseudo des autres joueurs, et de pouvoir se mettre ready, pour lancer la partie.
 
+Quand un joueur se connecte au server, il lui envoi un message contenant son pseudo.
+```c#
+public override void OnClientConnect(NetworkConnection conn)//Quand le client se connecte envoit un message contenant le pseudo
+    {
+        base.OnClientConnect(conn);
+
+        //Keep player pseudo
+        playerPseudo = GetComponent<MyNewNetworkAuthenticator>().lobbyPseudo;
+
+        //Send message to host with client pseudo
+        MyNewNetworkAuthenticator.ClientConnectionMessage clientMsg = new MyNewNetworkAuthenticator.ClientConnectionMessage 
+        {
+            pseudo = GetComponent<MyNewNetworkAuthenticator>().lobbyPseudo
+        };
+        NetworkClient.Send(clientMsg);
+    }
+```
+
+Le server le reçoit, il créer un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créer que par le serveur). Le serveur met ensuite à jours, sa liste interne des joueurs connecté au loby, très utile pour vérifier quand les joueurs seront prêts.
+
 ```c#
  private void CreateClientFromServer(NetworkConnection conn, MyNewNetworkAuthenticator.ClientConnectionMessage msg)
     {
@@ -51,7 +71,7 @@ L'objectif du loby dans notre jeu était de pouvoir voir le pseudo des autres jo
         {
             GameObject obj = Instantiate(lobbyPlayer);
             obj.GetComponent<LobbyPlayerLogic>().clientPseudo = msg.pseudo; //Créer le joueur loby 
-            obj.transform.position = new Vector3(-1000, -1000, -1000);
+            obj.transform.position = new Vector3(0, 0, 0); // Peut importe la position, une fois le jeu lancé, le joueur est placé au spawn
             NetworkServer.AddPlayerForConnection(conn, obj);
             AddToServerArray(obj);
         }
