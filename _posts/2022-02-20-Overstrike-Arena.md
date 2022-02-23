@@ -44,7 +44,7 @@ Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécan
 Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier.
 L'objectif du loby dans notre jeu était de pouvoir voir le pseudo des autres joueurs, et de pouvoir se mettre ready, pour lancer la partie.
 
-```
+```c#
  private void CreateClientFromServer(NetworkConnection conn, MyNewNetworkAuthenticator.ClientConnectionMessage msg)
     {
         if (conn.clientOwnedObjects.Count < 1) // Débug quand le joueur se connecte à un server qui n'existe pas, et ensuite host
