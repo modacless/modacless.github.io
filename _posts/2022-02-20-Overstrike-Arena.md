@@ -29,7 +29,7 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 1. Mirror, et smooth network Transform
 2. Lobby 
-3. Management d'un match 
+3. Match
 4. Tools d'analyse
 
 
@@ -82,7 +82,7 @@ Le server le reçoit, il crée un gameObject représentant le joueur, et lui tra
     } //Spawn l'objet lobbyPlayer et configure le server
 
 ```
-Le gameobject représentant un joueur, possède un networkTransform, ce qui lui permet mettre à jour sa position tout seul à travers le réseau.
+Le gameobject représentant un joueur, possède un networkTransform, ça lui permet de mettre à jour sa position à travers le réseau.
 
 ![theme logo](images\OverStrike\CaptureLobbyPlayer.PNG)
 
@@ -90,7 +90,89 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 
 ![theme logo](images\OverStrike\CaptureLobby.PNG)
 
-Intéressons nous aux fonctionnalité du "joueur lobby"
+Intéressons nous aux fonctionnalité du "joueur lobby".
 
+```c#
+    [SyncVar(hook =nameof(setReadyUI))]
+    public bool isReady = false;
+    [SyncVar(hook = nameof(UpdateUsername))]
+    public string clientPseudo;
+    [SyncVar(hook = nameof(ChangeTeam))]
+    public int team;
+```
 
+```c#
+[Command]
+    public void ButtonLeft()
+    {
+        if (!isReady)
+        {
+            if (team - 1 < 0)
+            {
+                team = 2;
+            }
+            else
+            {
+                team--;
+            }
+        }
 
+    }
+    [Command]
+    public void ButtonRight()
+    {
+        if (!isReady)
+        {
+            if (team + 1 > 2)
+            {
+                team = 0;
+            }
+            else
+            {
+                team++;
+            }
+        }
+    }
+
+    public void ChangeTeam(int oldValue,int newValue)
+    {
+        switch (newValue)
+        {
+            case 0:
+                teamImage.sprite = omgegaImage;
+                teamImage.color = omegaColor;
+                teamName = TeamName.Red;
+                break;
+            case 1:
+                teamImage.sprite = psiImage;
+                teamImage.color = psyColor;
+                teamName = TeamName.Blue;
+                break;
+            case 2:
+                teamImage.sprite = spectatorImage;
+                teamImage.color = spectatorColor;
+                teamName = TeamName.Spectator;
+                break;
+        }
+        if (hasAuthority)
+        {
+            serverManager.GetComponent<MyNewNetworkManager>().playerTeamName = teamName;
+        }
+        
+    } //Syncronise l'ui
+
+    public void UpdateUsername(string oldValue, string newValue)
+    {
+        usernameText.text = newValue;
+        gameObject.name = newValue;
+    }
+
+    [Command]
+    public void CmdSetReady()
+    {
+        isReady = !isReady;
+        serverManager.GetComponent<MyNewNetworkManager>().CheckIsReady();
+    }
+```
+
+## Match :
