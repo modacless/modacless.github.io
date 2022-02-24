@@ -19,8 +19,8 @@ project_entries:
     desc: game about crusader
 
   - title : LIS
-  url: https://modacless.itch.io/lost
-  desc: version moderne du jeux astéroids
+    url: https://modacless.itch.io/lost
+    desc: version moderne du jeux astéroids
 
 old_project_entries:
   - title: Soopr
