@@ -18,6 +18,10 @@ project_entries:
     url: https://modacless.itch.io/shunader
     desc: game about crusader
 
+  - title : LIS
+  url: https://modacless.itch.io/lost
+  desc: version moderne du jeux astéroids
+
 old_project_entries:
   - title: Soopr
     url: https://www.soopr.co

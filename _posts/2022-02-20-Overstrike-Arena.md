@@ -68,6 +68,12 @@ public override void OnClientConnect(NetworkConnection conn)//Quand le client se
 Le server le reçoit, il crée un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créer que par le serveur), il l'identifie ensuite en tant que joueur, et le lie à une connection. Le serveur met ensuite à jours, sa liste interne des joueurs connecté au lobby, très utile pour vérifier quand les joueurs seront prêts.
 
 ```c#
+
+public override void OnStartHost() {
+        NetworkServer.RegisterHandler<MyNewNetworkAuthenticator.ClientConnectionMessage>(CreateClientFromServer, true);
+        NetworkServer.RegisterHandler<MyNewNetworkAuthenticator.CreateClientPlayer>(CreatePlayer, true);
+    }
+
  private void CreateClientFromServer(NetworkConnection conn, MyNewNetworkAuthenticator.ClientConnectionMessage msg)
     {
         if (conn.clientOwnedObjects.Count < 1) // Débug quand le joueur se connecte à un server qui n'existe pas, et ensuite host
@@ -86,11 +92,9 @@ Le gameobject représentant un joueur, possède un networkTransform, ça lui per
 
 ![theme logo](images\OverStrike\CaptureLobbyPlayer.PNG)
 
-On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisible par tout le monde.
+Intéressons nous aux fonctionnalité du "joueur lobby". 
 
-![theme logo](images\OverStrike\CaptureLobby.PNG)
-
-Intéressons nous aux fonctionnalité du "joueur lobby".
+Nous avons 3 variables déclarées comme des variables synchronisées.  Une variable synchronisée, peut-être changé depuis le server, et réplique ce changement à travers tous les clients. On peut y rajouter un "hook", pour pouvoir utiliser une fonction, à chaque fois que la variable change.
 
 ```c#
     [SyncVar(hook =nameof(setReadyUI))]
@@ -100,6 +104,11 @@ Intéressons nous aux fonctionnalité du "joueur lobby".
     [SyncVar(hook = nameof(ChangeTeam))]
     public int team;
 ```
+
+L'attribut Command, va déclencher la fonction de l'objet contrôlé par le client, sur l'object contrôlé par ce client sur le server.
+Donc, si l'on combine cette attribut avec les variables syncrones, on peut répliquer un changement de variable depuis un client, sur tous les autres clients.
+
+Les fonctions ButtonLeft et ButtonRight sont rattachés à un unityEvent, sur des boutons, et se déclenche quand un joueur appuie sur une flèche. Ainsi quand un client appuie sur un boutton, il demande au server d'exécuter cette fonction, ce qui va changer une variable synchronisée et appeler sa fonction "hook", qui va changer visuellement l'équipe du client, pour tous les joueurs.
 
 ```c#
 [Command]
@@ -161,12 +170,6 @@ Intéressons nous aux fonctionnalité du "joueur lobby".
         
     } //Syncronise l'ui
 
-    public void UpdateUsername(string oldValue, string newValue)
-    {
-        usernameText.text = newValue;
-        gameObject.name = newValue;
-    }
-
     [Command]
     public void CmdSetReady()
     {
@@ -175,4 +178,48 @@ Intéressons nous aux fonctionnalité du "joueur lobby".
     }
 ```
 
-## Match :
+Afin de vérifier si chaque joueur est prêts, on va utiliser l'attribut command, pour vérifier si la variable isReady est "true" pour chaque client, si c'est le cas, on affiche un boutton "Start" , à l'host affin de pouvoir commencer une partie
+
+```c#
+     public bool CheckIsReady()
+    {
+        int redTeam = 0, blueTeam = 0;
+        for (int i = 0; i < lobbyPlayerServer.Length; i++)
+        {
+            if (lobbyPlayerServer[i] != null)
+            {
+                if (lobbyPlayerServer[i].GetComponent<LobbyPlayerLogic>().teamName == LobbyPlayerLogic.TeamName.Blue)
+                {
+                    blueTeam++;
+                }
+                if (lobbyPlayerServer[i].GetComponent<LobbyPlayerLogic>().teamName == LobbyPlayerLogic.TeamName.Red)
+                {
+                    redTeam++;
+                }
+
+                if (!lobbyPlayerServer[i].GetComponent<LobbyPlayerLogic>().isReady)
+                {
+                    StartButton.SetActive(false);
+                    return false;
+                }
+            }
+        }
+
+        if((redTeam == blueTeam) || (redTeam == 0 && blueTeam == 1) || (blueTeam == 0 && redTeam == 1) )
+        {
+            StartButton.SetActive(true);
+            return true;
+        }
+
+        return false;
+
+    }
+
+```
+
+On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisible par tout le monde.
+
+![theme logo](images\OverStrike\CaptureLobby.PNG)
+
+
+## Match
