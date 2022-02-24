@@ -223,3 +223,12 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 
 
 ## Match
+
+Notre jeux se divise en manches. 
+Une manche commence après qu'un compteur ce soit déclenché.
+
+![theme logo](images\OverStrike\CaptureWait.PNG)
+
+ Elle se termine quand une équipe marque un but.
+
+![theme logo](images\OverStrike\CaptureEndManche.png)
