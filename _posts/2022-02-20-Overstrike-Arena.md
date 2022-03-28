@@ -275,7 +275,7 @@ Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager"
 Cette object va gérer, le début et la fin de la partie, garder en mémoire les scores en bref gérer le déroulement d'une partie entière.
 
 ```c#
- [Server]
+    [Server]
     public void RpcEndGame(string text)
     {
         foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
@@ -311,7 +311,7 @@ Cette object va gérer, le début et la fin de la partie, garder en mémoire les
 On va utiliser des coroutines sur ces actions, afin de créer une chronologie plus facilement sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
 
 ```c#
-[TargetRpc]
+    [TargetRpc]
     public void RpcShowGoal(NetworkConnection conn,string text)
     {
         timerToStart = NetworkTime.time;
