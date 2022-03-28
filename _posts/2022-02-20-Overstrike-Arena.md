@@ -311,6 +311,10 @@ Cette object va gérer, le début et la fin de la partie, garder en mémoire les
 On va utiliser des coroutines sur ces actions, afin de créer une chronologie plus facilement sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
 
 ```c#
+    
+    
+    
+    
     [TargetRpc]
     public void RpcShowGoal(NetworkConnection conn,string text)
     {
