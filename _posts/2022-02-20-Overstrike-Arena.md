@@ -269,3 +269,102 @@ Une manche commence après qu'un compteur ce soit déclenché.
  Elle se termine quand une équipe marque un but.
 
 ![theme logo](images\OverStrike\CaptureEndManche.png)
+
+Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager".
+
+![theme logo](images\OverStrike\CaptureGameManager.png)
+
+```c#
+
+public IEnumerator RespawnManager()
+    {
+        //Uniquement possible pour le joueur possédant l'autorithé
+        if (hasAuthority)
+        {
+            //Stop le punch
+            StopChargingPunch();
+            selfMovement.FPVAnimator.StopAnimatePunch();
+
+            actionExclusiveHud.SetActive(false);
+
+            //Transition caméra au plafond
+            if (overviewCameraPos == null)
+                overviewCameraPos = GameObject.Find("OverviewCameraPosBlueSide").transform;
+            overviewCamera.enabled = true;
+            highlightCam.enabled = false;
+            fpvCam.enabled = false;
+            mainCam.enabled = false;
+            
+            //On a créer un Template Scène avec un Spawner, et un nombre d'enfant correspondant au des points dans l'espace
+            Transform spawnPoint;
+            spawnPoint = GameObject.FindWithTag("Spawner").transform.GetChild(spawnPosition);
+
+            //Fade out de l'écran de chargement
+            if (loadingScreen.color.a == 1)
+            {
+                loadingScreen.CrossFadeAlpha(0, 0.5f, false);
+            }
+
+            //Reset la position du joueur
+            transform.position = spawnPoint.position; //Obligatoire, sinon ne trouve pas le spawner à la premirèe frame
+            selfCollisionParent.transform.localRotation = spawnPoint.rotation;
+            selfCamera.localRotation = spawnPoint.rotation;
+
+            //Téléporte le joueur à travers le réseaux (Important, sinon peut laisser le joueur s'encastrer dans des murs)
+            selfSmoothSync.teleportOwnedObjectFromOwner();
+            selfCollsionSmoothSync.teleportOwnedObjectFromOwner();
+
+            //Reset la rotation du joueur
+            Quaternion startRot = selfCamera.localRotation;
+            xRotation = startRot.eulerAngles.x;
+            yRotation = startRot.eulerAngles.y;
+
+            //Créer l'affichage du timer
+            hudTextPlayer.gameObject.SetActive(true);
+
+            //Lock caméra
+            isSpawning = true;
+
+            //Bloque le joueur et affiche le temps restant avant le respawn
+            while (NetworkTime.time - timerToStart <= timerMaxToStart)
+            {
+                selfMovement.ResetVelocity();
+                selfMovement.ResetVerticalVelocity();
+                hudTextPlayer.text = System.Math.Ceiling(timerMaxToStart -(NetworkTime.time - timerToStart)).ToString();
+                if (tryToRespawn)
+                {
+                    timerToStart = NetworkTime.time;
+                    tryToRespawn = false;
+                }
+                overviewCamera.transform.position = overviewCameraPos.transform.position;
+                overviewCamera.transform.rotation = overviewCameraPos.transform.rotation;
+
+                yield return new WaitForEndOfFrame();
+
+            }
+            //La partie reprend pour le joueur
+            roundStarted = true;
+            hudTextPlayer.gameObject.SetActive(false);
+            actionExclusiveHud.SetActive(true);
+
+            //délock la camera
+            isSpawning = false;
+            overviewCamera.enabled = false;
+            highlightCam.enabled = true;
+            fpvCam.enabled = true;
+            mainCam.enabled = true;
+
+            //ajuste la rotation de la caméra
+            xRotation = startRot.eulerAngles.x;
+            yRotation = startRot.eulerAngles.y;
+
+            //Initialise le joueur dans l'outil d'analyse
+            if (GameObject.Find("Analytics") != null)
+            {
+                GameObject.Find("Analytics").GetComponent<PA_Position>().startWrite = true;
+            }
+            respawnCor = null;
+        }
+    }
+
+    ```
