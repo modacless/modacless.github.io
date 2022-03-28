@@ -312,7 +312,19 @@ Cette object va gérer, le début et la fin de la partie, garder en mémoire les
 
 On va utiliser des coroutines sur ces actions, afin de créer une chronologie plus facilement sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
 
-```cs
+```c#
+[TargetRpc]
+    public void RpcShowGoal(NetworkConnection conn,string text)
+    {
+        timerToStart = NetworkTime.time;
+        if(respawnCor == null)
+        {
+            respawnCor = StartCoroutine(GoalMessageManager(text));
+        }
+            
+        CmdShowScoreHud();
+    }
+
 //Gère le respawn du joueur, situé dans le script du joueur
 public IEnumerator RespawnManager()
     {
