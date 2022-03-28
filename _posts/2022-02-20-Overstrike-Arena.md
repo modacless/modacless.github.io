@@ -274,6 +274,46 @@ Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager"
 
 ![theme logo](images\OverStrike\CaptureGameManager.PNG)
 
+Cette object va gérer, le début et la fin de la partie, garder en mémoire les scores en bref gérer le déroulement d'une partie entière.
+
+```c#
+
+
+ [Server]
+    public void RpcEndGame(string text)
+    {
+        foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+        {
+            foreach (NetworkIdentity idOwnedByClient in conn.clientOwnedObjects)
+            {
+                if (idOwnedByClient.gameObject.GetComponent<PlayerLogic>() != null)
+                {
+                    idOwnedByClient.gameObject.GetComponent<PlayerLogic>().RpcEndGame(conn, text);
+                }
+            }
+        }
+    }
+
+     [Server]
+    private void ChangeUiPlayer(string text)
+    {
+        foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+        {
+            foreach (NetworkIdentity idOwnedByClient in conn.clientOwnedObjects)
+            {
+                if (idOwnedByClient.gameObject.GetComponent<PlayerLogic>() != null && !idOwnedByClient.gameObject.GetComponent<PlayerLogic>().isSpawning)
+                {
+                    //Creér une coroutile affichant l'ui, pui créer une nouvelle coroutine permettant de faire respawn les joueurs
+                    idOwnedByClient.gameObject.GetComponent<PlayerLogic>().RpcShowGoal(conn,text);
+                }
+            }
+        }
+    }
+
+```
+
+
+
 ```c#
 public IEnumerator RespawnManager()
     {
