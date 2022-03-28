@@ -10,7 +10,7 @@ layout: post
 
 Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affrontent dans une arène avec un "punch", afin d'expulser leurs adversaires, et de marquer un but.
 
-### Equipes
+### Equipe
 
 - Nicolas Capelier (Technical Game Designer && Porteur de vision)
 - Théodore Labyt (Producer)
@@ -22,8 +22,6 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 - Antoine Grugeon(3C Programmer && Designer)
 
 ---
-
-### Mon Rôle
 
 ## Techniques
 
@@ -37,7 +35,7 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveaux. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
 
-Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouter une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleurs coustomisation, et de meilleurs performance sur la position des objets "onlines".
+Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouter une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleurs customisation, et de meilleurs performance sur la position des objets "onlines".
 
 Le jeux va donc utiliser une structure server/client, ou le client possède l'authorité, et le server est un joueur, qui joue comme les autres clients.
 
@@ -325,8 +323,8 @@ On va utiliser des coroutines sur ces actions, afin de créer une chronologie pl
         CmdShowScoreHud();
     }
 
-//Gère le respawn du joueur, situé dans le script du joueur
-public IEnumerator RespawnManager()
+    //Gère le respawn du joueur, situé dans le script du joueur
+    public IEnumerator RespawnManager()
     {
         //Uniquement possible pour le joueur possédant l'autorithé
         if (hasAuthority)
