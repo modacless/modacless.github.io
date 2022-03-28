@@ -224,6 +224,43 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 
 ## Match
 
+Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égal à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient finis de charger, avant "d'activer" le joueur, et de commencer une partie.
+
+Les attributs Server et ServerCallback, vont permettre de spécifier des fonctions qui ne peuvent être lancer que par le server. Etant donnée que c'est le server qui attend les joueurs, ces fonctions ne peuvent êtres qu'utiliser par lui.
+
+On parcourt ici les valeurs d'un dictionnaire disponible côté server, 
+
+```c#
+ [ServerCallback]
+    private bool AllClientAreReady()
+    {
+        foreach( NetworkConnectionToClient conn in NetworkServer.connections.Values)
+        {
+            if (!conn.isReady)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    [Server]
+    private void ActivatePlayer()
+    {
+        foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+        {
+            foreach (NetworkIdentity idOwnedByClient in conn.clientOwnedObjects)
+            {
+                if (idOwnedByClient.gameObject.GetComponent<PlayerLogic>() != null)
+                {
+                    idOwnedByClient.gameObject.GetComponent<PlayerLogic>().RpcRespawn(conn,3f);
+                }
+            }
+        }
+    }
+
+```
+
 Notre jeux se divise en manches. 
 Une manche commence après qu'un compteur ce soit déclenché.
 

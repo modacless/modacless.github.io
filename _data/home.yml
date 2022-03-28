@@ -16,34 +16,28 @@ project_entries:
 
   - title: Shunader
     url: https://modacless.itch.io/shunader
-    desc: game about crusader
+    desc: prototype jeux d'aventure
 
   - title : LIS
     url: https://modacless.itch.io/lost
     desc: version moderne du jeux astéroids
 
-old_project_entries:
-  - title: Soopr
-    url: https://www.soopr.co
-    desc: Delight your readers - add beautiful share and like buttons easily to your websites 
-    highlight: NEW
+  - title : Gta rétro
+    url: https://modacless.itch.io/lost-in-space
+    desc: Prototype des mécaniques d'un jeu vieux gta
 
-  - title: Humangous
-    url: https://www.humangous.co
-    desc: The better people know you, the better they collaborate
+old_project_entries:
+  - title: PoorWireShark
+    url: https://github.com/modacless/PoorWireShark
+    desc: Simple liseur de tram
 
 footer_entries:
-  - title: abhinav's homepage
-    url: https://www.abhinav.co
-
-  - title: twitter
-    url: https://twitter.com/abhinav
+  - title: Homepage
+    url: https://modacless.github.io/
 
   - title: github
-    url: https://github.com/abhinavs
+    url: https://github.com/modacless
 
-  - title: feed
-    url: feed.xml
 
 misc_entries:
   - title: this is an example vertical list
