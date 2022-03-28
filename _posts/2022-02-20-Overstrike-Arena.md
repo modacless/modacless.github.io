@@ -277,8 +277,6 @@ Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager"
 Cette object va gérer, le début et la fin de la partie, garder en mémoire les scores en bref gérer le déroulement d'une partie entière.
 
 ```c#
-
-
  [Server]
     public void RpcEndGame(string text)
     {
@@ -312,7 +310,7 @@ Cette object va gérer, le début et la fin de la partie, garder en mémoire les
 
 ```
 
-
+On va utiliser des coroutines sur ces actions, afin de créer une chronologie plus facilement sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
 
 ```c#
 public IEnumerator RespawnManager()
