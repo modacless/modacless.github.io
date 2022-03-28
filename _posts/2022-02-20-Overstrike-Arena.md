@@ -272,10 +272,9 @@ Une manche commence après qu'un compteur ce soit déclenché.
 
 Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager".
 
-![theme logo](images\OverStrike\CaptureGameManager.png)
+![theme logo](images\OverStrike\CaptureGameManager.PNG)
 
 ```c#
-
 public IEnumerator RespawnManager()
     {
         //Uniquement possible pour le joueur possédant l'autorithé
