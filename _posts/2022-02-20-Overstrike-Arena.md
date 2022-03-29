@@ -222,7 +222,7 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 ![theme logo](images\OverStrike\CaptureLobby.PNG)
 
 
-## Match
+## [Match](#Match)
 
 Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égale à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient fini de charger, avant "d'activer" le joueur, et de commencer une partie.
 
