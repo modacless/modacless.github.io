@@ -33,7 +33,7 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ## Mirror :
 
-[1]: Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveau. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
+[^1]: Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveau. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
 
 Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouté une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleur customisation, et de meilleurs performance sur la position des objets "online".
 
@@ -41,7 +41,7 @@ Le jeux va donc utiliser une structure server/client, ou le client possède l'au
 
 ## Lobby :
 
-[2]: Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier. Le joueur décidant d'héberger, va attendre que les joueurs se connectent au server.
+[^2]: Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier. Le joueur décidant d'héberger, va attendre que les joueurs se connectent au server.
 
 L'objectif du lobby dans notre jeu était de pouvoir voir le pseudo des autres joueurs, de pouvoir changer d'équipe et de pouvoir se mettre "prêt", pour lancer la partie.
 
@@ -222,7 +222,7 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 
 ## Match
 
-[3]: Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égale à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient fini de charger, avant "d'activer" le joueur, et de commencer une partie.
+[^3]: Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égale à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient fini de charger, avant "d'activer" le joueur, et de commencer une partie.
 
 Les attributs Server et ServerCallback, vont permettre de spécifier des fonctions qui ne peuvent être lancer que par le serveur. Etant donnée que c'est le serveur qui attend les joueurs, ces fonctions ne peuvent être qu'utilisées par lui.
 
@@ -419,7 +419,7 @@ On va utiliser des coroutines afin de créer une chronologie sur les actions li�
 
 ## Outil et Analyse
 
-[4]: Durant mon travail sur ce projet, j'ai dû créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
+[^4]: Durant mon travail sur ce projet, j'ai dû créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
 
 J'ai donc créé poorAnalytics, un petit outil qui me permet de dessiner le déplacement des joueurs en fonction d'une manche.
 
