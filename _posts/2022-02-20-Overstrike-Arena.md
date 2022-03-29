@@ -27,13 +27,13 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ## Index
 
-- [Mirror, et smooth Sync](#First)
-- [Lobby](#Second)
-- [Match](#Third)
-- [Outil et analyse](#Fourth)
+- [Mirror](#Mirror)
+- [Lobby](#Lobby)
+- [Match](#Match)
+- [Outil et analyse](#Outil-et-analyse)
 
 
-## [Mirror :](#First)
+## Mirror
 
 Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveau. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
 
@@ -41,7 +41,7 @@ Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécan
 
 Le jeux va donc utiliser une structure server/client, ou le client possède l'autorité, et le server est un joueur, qui joue comme les autres clients.
 
-## [Lobby :](#Second)
+## Lobby
 
 Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier. Le joueur décidant d'héberger, va attendre que les joueurs se connectent au server.
 
@@ -222,7 +222,7 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 ![theme logo](images\OverStrike\CaptureLobby.PNG)
 
 
-## [Match : ](#Third)
+## Match
 
 Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égale à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient fini de charger, avant "d'activer" le joueur, et de commencer une partie.
 
@@ -419,7 +419,7 @@ On va utiliser des coroutines afin de créer une chronologie sur les actions li�
     }
 ```
 
-## [Outil et Analyse](#Fourth)
+## Outil et Analyse
 
 Durant mon travail sur ce projet, j'ai dû créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
 
