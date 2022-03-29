@@ -25,10 +25,10 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ## Techniques
 
-1. Mirror, et smooth network Transform
+1. Mirror, et smooth Sync
 2. Lobby 
 3. Match
-4. Tools d'analyse
+4. Outils et analyse
 
 
 ## Mirror :
@@ -272,7 +272,7 @@ Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager"
 
 ![theme logo](images\OverStrike\CaptureGameManager.PNG)
 
-Cette object va gérer, le début et la fin de la partie, garder en mémoire les scores en bref gérer le déroulement d'une partie entière.
+Cette object va gérer, le début et la fin de la partie, garder en mémoire les scores en bref manager le déroulement d'une partie entière.
 
 ```c#
     [Server]
@@ -309,7 +309,7 @@ Cette object va gérer, le début et la fin de la partie, garder en mémoire les
 
 
 
-On va utiliser des coroutines sur ces actions, afin de créer une chronologie plus facilement sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
+On va utiliser des coroutines sur ces actions, afin de créer une chronologie sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
 
 ```c#
     [TargetRpc]
@@ -414,5 +414,216 @@ On va utiliser des coroutines sur ces actions, afin de créer une chronologie pl
             }
             respawnCor = null;
         }
+    }
+```
+
+## Outils et analyse
+
+Durant mon travail sur ce projet, j'ai du créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
+
+J'ai donc créer poorAnalytics, un petit outil qui me permet tracer le déplacement des joueurs en fonction de la manche
+
+![theme logo](images\OverStrike\PoorAnalytics.png)
+
+![theme logo](images\OverStrike\PoorAnalytics2.png)
+
+![theme logo](images\OverStrike\PoorAnalyticsUnity.PNG)
+
+```c#
+    public class PA_Position : MonoBehaviour
+    {
+        public MatchManager gameManager;
+        public string fileToStorePosition;
+
+        public float timeEachBreak;
+        private float ownDeltaTime;
+
+        public List<Transform> analyticGameObjectPosition;
+
+        private bool onceInit = true;
+        [HideInInspector]
+        public bool startWrite = true;
+
+        private void Start()
+        {
+            if (GameObject.Find("ServerManager").GetComponent<MyNewNetworkManager>().analyticsPath != string.Empty)
+            {
+                fileToStorePosition = GameObject.Find("ServerManager").GetComponent<MyNewNetworkManager>().analyticsPath;
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+            
+        }
+
+        void InitAnalytics()
+        {
+            StreamWriter writer = new StreamWriter(fileToStorePosition, false);
+            writer.Write("// ");
+            for (int i = 0; i < analyticGameObjectPosition.Count; i++)
+            {
+                writer.Write("Object " + i.ToString() + "-");
+            }
+            writer.WriteLine();
+            writer.Close();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (gameManager.startGame)
+            {
+                if (onceInit)
+                {
+                    onceInit = false;
+                    InitAnalytics();
+                }
+
+                ownDeltaTime += Time.deltaTime;
+                if (ownDeltaTime >= timeEachBreak && startWrite)
+                {
+                    WriteAllObjectPosition();
+                    ownDeltaTime = 0f;
+                }
+            }
+            
+        }
+
+        void OnApplicationQuit()
+        {
+            StreamWriter writer = new StreamWriter(fileToStorePosition, true);
+            DateTime dt = DateTime.Now;
+            writer.WriteLine("// " + dt.ToString() + " //");
+            writer.Close();
+        }
+
+        private void WriteAllObjectPosition()
+        {
+            StreamWriter writer = new StreamWriter(fileToStorePosition, true);
+            foreach(Transform objPosition in analyticGameObjectPosition)
+            {
+                writer.Write(objPosition.position.x.ToString() + "|" + objPosition.position.y.ToString() + "|" + objPosition.position.z.ToString() + ";");
+            }
+            writer.Write("\n");
+            writer.Close();
+        }
+
+        public void WriteNewRound()
+        {
+            startWrite = false;
+            StreamWriter writer = new StreamWriter(fileToStorePosition, true);
+            writer.Write("++New Round++");
+            writer.Write("\n");
+            writer.Close();
+        }
+    }
+```
+
+```c#
+ public void LoadKeyPositions()
+    {
+
+        playersKeyPosition.Clear();
+        roundPointeur = 0;
+        round = 0;
+        try
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                playersKeyPosition.Add(new List<List<Vector3>>());
+            }
+
+            StreamReader sr = new StreamReader(pathFilePositions);
+
+            string firstLine = sr.ReadLine();
+            string[] allPlayersInLine = firstLine.Split(new[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            //Colors add or remove
+            if(colors.Count > allPlayersInLine.Length)
+            {
+                while(colors.Count != allPlayersInLine.Length)
+                {
+                    colors.RemoveAt(colors.Count-1);
+                }
+            }
+            if (colors.Count < allPlayersInLine.Length)
+            {
+                while (colors.Count != allPlayersInLine.Length)
+                {
+                    colors.Add(new Color());
+                }
+            }
+
+            foreach (string players in allPlayersInLine)
+            {
+                if(players.Length > 1)
+                {
+                    for(int i = 0; i < 5; i++)
+                    {
+                        playersKeyPosition[i].Add(new List<Vector3>());
+                    }
+                }
+            }
+            
+            //Read and parse file position
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+
+                if (line.Contains("++"))
+                {
+                    roundPointeur++;
+                }
+                if (!line.Contains("//") && !line.Contains("++"))
+                {
+                    //Find each object
+                    string[] playersPositions = line.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    //Parse position for an object
+                    for(int i = 0; i < playersPositions.Length; i++)
+                    {
+                        string[] playerPosition = playersPositions[i].Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                        float _x = float.Parse(playerPosition[0]);
+                        float _y = float.Parse(playerPosition[1]);
+                        float _z = float.Parse(playerPosition[2]);
+
+                        playersKeyPosition[roundPointeur][i].Add(new Vector3(_x, _y, _z));
+                    }
+                }
+                
+            }
+            sr.Close();
+        }catch(Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
+    }
+```
+
+```c#
+
+ void OnDrawGizmos()
+    {
+
+        //Gizmos.DrawLine(new Vector3(0,0,0), new Vector3(0, 100, 0));
+        int j = 0;
+
+        if(playersKeyPosition.Count > 0)
+        {
+            foreach (List<Vector3> KeyPositions in playersKeyPosition[round])
+            {
+                Gizmos.color = colors[j];
+                if (KeyPositions.Count > 3) // sup to 3 because there is min 2 lines per files
+                {
+                    for (int i = 1; i < KeyPositions.Count; i++)
+                    {
+                        Gizmos.DrawLine(KeyPositions[i - 1], KeyPositions[i]);
+                    }
+                }
+                j++;
+            }
+        }
+
     }
 ```
