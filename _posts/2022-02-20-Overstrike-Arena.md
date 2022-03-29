@@ -222,11 +222,11 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 
 ## Match
 
-Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égal à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient finis de charger, avant "d'activer" le joueur, et de commencer une partie.
+Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égale à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient fini de charger, avant "d'activer" le joueur, et de commencer une partie.
 
-Les attributs Server et ServerCallback, vont permettre de spécifier des fonctions qui ne peuvent être lancer que par le server. Etant donnée que c'est le server qui attend les joueurs, ces fonctions ne peuvent êtres qu'utiliser par lui.
+Les attributs Server et ServerCallback, vont permettre de spécifier des fonctions qui ne peuvent être lancer que par le serveur. Etant donnée que c'est le serveur qui attend les joueurs, ces fonctions ne peuvent être qu'utilisées par lui.
 
-On parcourt ici les valeurs d'un dictionnaire disponible côté server, 
+On parcourt ici les valeurs d'un dictionnaire disponible côté serveur, 
 
 ```c#
  [ServerCallback]
@@ -259,8 +259,8 @@ On parcourt ici les valeurs d'un dictionnaire disponible côté server,
 
 ```
 
-Notre jeux se divise en manches. 
-Une manche commence après qu'un compteur ce soit déclenché.
+Notre jeu se divise en manches. 
+Une manche commence après qu'un compteur se soit déclenché.
 
 ![theme logo](images\OverStrike\CaptureWait.PNG)
 
@@ -268,11 +268,11 @@ Une manche commence après qu'un compteur ce soit déclenché.
 
 ![theme logo](images\OverStrike\CaptureEndManche.png)
 
-Toute la gestion de la partie est gérer grâce à mon GameObject "MatchManager".
+Toute la gestion de la partie est géré grâce à mon GameObject "MatchManager".
 
 ![theme logo](images\OverStrike\CaptureGameManager.PNG)
 
-Cette object va gérer, le début et la fin de la partie, garder en mémoire les scores en bref manager le déroulement d'une partie entière.
+Cet objet va gérer, le début et la fin de la partie, garder en mémoire les scores en bref manager le déroulement d'une partie entière.
 
 ```c#
     [Server]
@@ -309,7 +309,7 @@ Cette object va gérer, le début et la fin de la partie, garder en mémoire les
 
 
 
-On va utiliser des coroutines sur ces actions, afin de créer une chronologie sur les actions liés au network, et de ne pas bloquer l'affichage de l'ui du joueur.
+On va utiliser des coroutines afin de créer une chronologie sur les actions liées au network, et de ne pas bloquer l'affichage de l'ui du joueur.
 
 ```c#
     [TargetRpc]
@@ -417,11 +417,11 @@ On va utiliser des coroutines sur ces actions, afin de créer une chronologie su
     }
 ```
 
-## Outils et analyse
+## Outil et Analyse
 
-Durant mon travail sur ce projet, j'ai du créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
+Durant mon travail sur ce projet, j'ai dû créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
 
-J'ai donc créer poorAnalytics, un petit outil qui me permet tracer le déplacement des joueurs en fonction de la manche
+J'ai donc créé poorAnalytics, un petit outil qui me permet de dessiner le déplacement des joueurs en fonction d'une manche.
 
 ![theme logo](images\OverStrike\PoorAnalytics.png)
 
@@ -429,16 +429,16 @@ J'ai donc créer poorAnalytics, un petit outil qui me permet tracer le déplacem
 
 ![theme logo](images\OverStrike\PoorAnalyticsUnity.PNG)
 
-On peut décomposer cet outil en 2 scripts, un liseur, un écriveur.
+On peut décomposer cet outil en 2 scripts, un Writer, un Reader.
 
-Le "writer", va écrire dans un fichier text, toutes les positions des objets stocker dans la list analyticGameObjectPosition;
-Afain de pouvoir les lires plus tard, je met en place une architecture simple
+Le "writer", va écrire dans un fichier text, toutes les positions des objets stocker dans la liste analyticGameObjectPosition;
+Afin de pouvoir utiliser ces données plus tard, je mets en place une architecture simple dans le fichier texte :
 
 * `//` permet de définir que ce n'est pas une data brut
 * `-` différencie chaque joueur
-* `;` déffinie la fin de la ligne
+* `;` définie la fin de la ligne
 * `|` Permet de différencier les coordonnées (x,y,z)
-* `++New Round++` Flag, qui permet au liseur de détecter un nouveau round
+* `++New Round++` Flag, qui permet au Reader de détecter un nouveau round
 
 ```c#
     public class PA_Position : MonoBehaviour
@@ -531,7 +531,13 @@ Afain de pouvoir les lires plus tard, je met en place une architecture simple
     }
 ```
 
+Le "Reader", récupère le path du fichier texte, et grâce à un bouton (Draw in world), va lancer la fonction `LoadKeyPositions`, qui s'occupe de parser et de stocker les positions dans une liste 3 dimensions.
+Chaque dimension correspondant à un des paramètres de la partie -> Quel manche, Quel joueur, ses positions.
+
+
 ```c#
+public List<List<List<Vector3>>> playersKeyPosition = new List<List<List<Vector3>>>();
+
  public void LoadKeyPositions()
     {
 
@@ -612,6 +618,10 @@ Afain de pouvoir les lires plus tard, je met en place une architecture simple
     }
 ```
 
+Une fois les données stockées, on va implémenter une fonction apportée par Monobehavior : OnDrawnGizmos.
+Cette fonction va nous permettre de dessiner des formes simples directement dans la scène du moteur de jeux. Une fonction très utile pour le debugging ou l'analyse du jeu.
+On va alors dessiner une ligne entre les coordonnées de chaque joueur en fonction de la manche, indiqué par un entier depuis l'inspector.
+
 ```c#
 
  void OnDrawGizmos()
@@ -638,3 +648,8 @@ Afain de pouvoir les lires plus tard, je met en place une architecture simple
 
     }
 ```
+
+On utilise ici un fichier texte pour stocker les données afin de  pouvoir l'échanger, le stocker, le récupérer plus facilement. On peut aussi essayer d'automatiser l'envoi de ce fichier sur un server. À la fin d'une partie, l'hôte pourrait envoyer automatiquement le texte sur un server que l'on héberge, ça permettrait à mon équipe d'avoir facilement accès à toutes les données des joueurs ayant essayé le jeu online.
+
+Il y a beaucoup de moyens pour améliorer cet outil, l'utilisation d'une liste 3d, n'est vraiment pas une bonne pratique en informatique par exemple. Un onceInit, totalement inutile, qui peut-être remplacé par la création d'une coroutine au start, qui se met en attente, tant que les conditions requises n'ont pas terminé.
+
