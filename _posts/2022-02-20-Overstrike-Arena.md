@@ -23,7 +23,9 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ---
 
-## Techniques
+### Technique
+
+## Index
 
 1. Mirror, et smooth Sync [1]
 2. Lobby [2]
