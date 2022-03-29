@@ -429,6 +429,17 @@ J'ai donc créer poorAnalytics, un petit outil qui me permet tracer le déplacem
 
 ![theme logo](images\OverStrike\PoorAnalyticsUnity.PNG)
 
+On peut décomposer cet outil en 2 scripts, un liseur, un écriveur.
+
+Le "writer", va écrire dans un fichier text, toutes les positions des objets stocker dans la list analyticGameObjectPosition;
+Afain de pouvoir les lires plus tard, je met en place une architecture simple
+
+* // permet de définir que ce n'est pas une data brut
+* - différencie chaque joueur
+* ; déffinie la fin de la ligne
+* | Permet de différencier les coordonnées (x,y,z)
+* ++New Round++ Flag, qui permet au liseur de détecter un nouveau round
+
 ```c#
     public class PA_Position : MonoBehaviour
     {
