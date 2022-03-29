@@ -33,11 +33,11 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 
 ## Mirror :
 
-Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveaux. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
+Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveau. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
 
-Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouter une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleurs customisation, et de meilleurs performance sur la position des objets "onlines".
+Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouté une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleur customisation, et de meilleurs performance sur la position des objets "online".
 
-Le jeux va donc utiliser une structure server/client, ou le client possède l'authorité, et le server est un joueur, qui joue comme les autres clients.
+Le jeux va donc utiliser une structure server/client, ou le client possède l'autorité, et le server est un joueur, qui joue comme les autres clients.
 
 ## Lobby :
 
@@ -63,7 +63,7 @@ public override void OnClientConnect(NetworkConnection conn)//Quand le client se
     }
 ```
 
-Le server le reçoit, il crée un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créer que par le serveur), il l'identifie ensuite en tant que joueur, et le lie à une connection. Le serveur met ensuite à jours, sa liste interne des joueurs connecté au lobby, très utile pour vérifier quand les joueurs seront prêts.
+Le serveur le reçoit, il crée un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créé que par le serveur), il l'identifie ensuite en tant que joueur, et le lie à une connexion. Le serveur met ensuite à jour, sa liste interne des joueurs connecté au lobby, très utile pour vérifier quand les joueurs seront prêts.
 
 ```c#
 
@@ -90,9 +90,9 @@ Le gameobject représentant un joueur, possède un networkTransform, ça lui per
 
 ![theme logo](images\OverStrike\CaptureLobbyPlayer.PNG)
 
-Intéressons nous aux fonctionnalité du "joueur lobby". 
+Intéressons-nous aux fonctionnalités du "joueur lobby". 
 
-Nous avons 3 variables déclarées comme des variables synchronisées.  Une variable synchronisée, peut-être changé depuis le server, et réplique ce changement à travers tous les clients. On peut y rajouter un "hook", pour pouvoir utiliser une fonction, à chaque fois que la variable change.
+Nous avons 3 variables déclarées comme des variables synchronisées.  Une variable synchronisée, peut-être changé depuis le serveur, et réplique ce changement à travers tous les clients. On peut y rajouter un "hook", pour pouvoir utiliser une fonction, à chaque fois que la variable change.
 
 ```c#
     [SyncVar(hook =nameof(setReadyUI))]
@@ -103,14 +103,14 @@ Nous avons 3 variables déclarées comme des variables synchronisées.  Une vari
     public int team;
 ```
 
-L'attribut Command, va déclencher la fonction de l'objet contrôlé par le client, sur l'object contrôlé par ce client sur le server.
-Donc, si l'on combine cette attribut avec les variables syncrones, on peut répliquer un changement de variable depuis un client, sur tous les autres clients.
+L'attribut Command, va déclencher la fonction de l'objet contrôlé par le client, sur l'object contrôlé par ce client sur le serveur.
+Donc, si l'on combine cet attribut avec les variables synchrones, on peut répliquer un changement de variable depuis un client, sur tous les autres clients.
 
-Les fonctions ButtonLeft et ButtonRight sont rattachés à un unityEvent, sur des boutons, et se déclenche quand un joueur appuie sur une flèche. Ainsi quand un client appuie sur un boutton, il demande au server d'exécuter cette fonction, ce qui va changer une variable synchronisée et appeler sa fonction "hook", qui va changer visuellement l'équipe du client, pour tous les joueurs.
+Les fonctions ButtonLeft et ButtonRight sont rattachés à un unityEvent, sur des boutons, et se déclenche quand un joueur appuie sur une flèche. Ainsi quand un client appuie sur un bouton, il demande au serveur d'exécuter cette fonction, ce qui va changer une variable synchronisée et appeler sa fonction "hook", qui va changer visuellement l'équipe du client, pour tous les joueurs.
 
 ```c#
 [Command]
-    public void ButtonLeft()
+    public void ButonLeft()
     {
         if (!isReady)
         {
@@ -126,7 +126,7 @@ Les fonctions ButtonLeft et ButtonRight sont rattachés à un unityEvent, sur de
 
     }
     [Command]
-    public void ButtonRight()
+    public void ButonRight()
     {
         if (!isReady)
         {
@@ -176,7 +176,7 @@ Les fonctions ButtonLeft et ButtonRight sont rattachés à un unityEvent, sur de
     }
 ```
 
-Afin de vérifier si chaque joueur est prêts, on va utiliser l'attribut command, pour vérifier si la variable isReady est "true" pour chaque client, si c'est le cas, on affiche un boutton "Start" , à l'host affin de pouvoir commencer une partie
+Afin de vérifier si chaque joueur est prêt, on va utiliser l'attribut command, pour vérifier si la variable isReady est "true" pour chaque client, si c'est le cas, on affiche un boutton "Start" , à l'host afin de pouvoir commencer une partie
 
 ```c#
      public bool CheckIsReady()
