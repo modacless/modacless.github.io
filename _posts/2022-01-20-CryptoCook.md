@@ -4,7 +4,7 @@ layout: post
 
 ![theme logo](https://modacless.github.io/images/CryptoCook/Logo.png)
 
-https://youtu.be/KXxcCExGzqM
+![theme logo](https://youtu.be/KXxcCExGzqM)
 
 ---
 
