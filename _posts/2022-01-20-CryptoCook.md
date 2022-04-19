@@ -7,8 +7,7 @@ layout: post
 ---
 
 <html>
-<iframe width="420" height="345" src="https://youtu.be/KXxcCExGzqM">
-</iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KXxcCExGzqM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </html>
 
 ---
