@@ -14,6 +14,10 @@ project_entries:
     desc: Jeux multijoueur 2v2, compétitif
     highlight: NEW
 
+  - title: Crypto-Cook
+    url : CryptoCook
+    desc : Prototype de jeux de carte
+
   - title: Shunader
     url: https://modacless.itch.io/shunader
     desc: prototype jeux d'aventure
