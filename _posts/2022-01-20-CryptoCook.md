@@ -4,7 +4,12 @@ layout: post
 
 ![theme logo](https://modacless.github.io/images/CryptoCook/Logo.png)
 
-![theme logo](https://youtu.be/KXxcCExGzqM)
+---
+
+<html>
+<iframe width="420" height="345" src="https://youtu.be/KXxcCExGzqM">
+</iframe>
+</html>
 
 ---
 
