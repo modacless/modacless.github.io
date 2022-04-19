@@ -10,7 +10,7 @@ https://youtu.be/KXxcCExGzqM
 
 # Introduction
 
-Crypto-Cook est un petit prototype de jeu de carte culinaire fais en 1 semaines par une équipe de 7 personnes. L'objectif de cette semaine était de créer un jeux proposant 2 decks différents, avec la possibilité de joué en ligne.
+Chef Duel est un petit prototype de jeu de carte culinaire fais en 1 semaines par une équipe de 7 personnes. L'objectif de cette semaine était de créer un jeux proposant 2 decks différents, avec la possibilité de joué en ligne.
 
 ## Les mécaniques
 

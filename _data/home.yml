@@ -14,8 +14,8 @@ project_entries:
     desc: Jeux multijoueur 2v2, compétitif
     highlight: NEW
 
-  - title: Crypto-Cook
-    url : cryptoCook
+  - title: Chef Duel
+    url : cryptocook
     desc : Prototype de jeux de carte
 
   - title: Shunader
