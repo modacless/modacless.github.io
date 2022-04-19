@@ -16,3 +16,10 @@ Chef Duel est un petit prototype de jeu de carte culinaire fais en 1 semaines pa
 
 Le plateau de jeux est divisé en 3 parties. Une partie commune au centre, qui permet de piocher des aliments. Une main qui contient les recettes pioché par le joueur, et une réserve qui est remplie par le joueur et qui permet de créer des recettes. Pour gagner une partie c'est simple, il suffit de combiner un ensemble de recettes dans des repas, pour gagner le plus points.
 
+## Images
+
+![theme logo](https://modacless.github.io/images/CryptoCook/Start.png)
+
+![theme logo](https://modacless.github.io/images/CryptoCook/Plateau.png)
+
+![theme logo](https://modacless.github.io/images/CryptoCook/CarteZoom.png)
