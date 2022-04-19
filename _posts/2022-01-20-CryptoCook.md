@@ -18,7 +18,7 @@ Le plateau de jeux est divisé en 3 parties. Une partie commune au centre, qui p
 
 ## Images
 
-![theme logo](https://modacless.github.io/images/CryptoCook/Start.png)
+![theme logo](https://modacless.github.io/images/CryptoCook/Start.PNG)
 
 ![theme logo](https://modacless.github.io/images/CryptoCook/Plateau.png)
 
