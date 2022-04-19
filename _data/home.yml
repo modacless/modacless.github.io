@@ -15,7 +15,7 @@ project_entries:
     highlight: NEW
 
   - title: Crypto-Cook
-    url : CryptoCook
+    url : cryptoCook
     desc : Prototype de jeux de carte
 
   - title: Shunader
