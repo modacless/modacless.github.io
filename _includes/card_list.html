@@ -2,6 +2,7 @@
   {% for item in include.collection %}
 
     <li class="card">
+      <p style="background-image: url('https://modacless.github.io/images/CryptoCook/Logo.png');">
       <a href="{{ item.url }}">
         <span class="header">
           {{ item.title }}
@@ -20,6 +21,7 @@
         </p>
         {% endif %}
       </a>
+    </p>
     </li>
 
   {% endfor %}

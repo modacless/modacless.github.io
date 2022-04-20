@@ -21,6 +21,13 @@ Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affront
 - Nicolas Perruchot(Marketing)
 - Antoine Grugeon(3C Programmer && Designer)
 
+
+### Mon travail
+
+J'ai un peu touché à tout le domaine technique pour osa, j'ai travaillé sur du gameplay en collaboration avec le 3C designer, sur du réseau, sur du système (mise en place des manches, du "flag", des différentes équipes ...), et sur quelques "tools" pour aider mon équipe à produire plus d'éléments.
+
+Si vous êtes intéressés par la partie réseaux et tools, j'explique un peu plus bas des bouts de codes que j'ai utilisés pour développer OSA.
+
 ---
 
 # Technique
