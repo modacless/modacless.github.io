@@ -3,10 +3,14 @@
 
     <li class="card">
       <style>
-        p {
-          background-image: url('https://modacless.github.io/images/OverStrike/overstrikeArena.png');
-        }
-        </style>
+       body {
+      background-image: url('https://modacless.github.io/images/CryptoCook/Logo.png');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+}
+
+      </style>
       <a href="{{ item.url }}">
         <span class="header">
           {{ item.title }}
@@ -26,6 +30,5 @@
         {% endif %}
       </a>
     </li>
-
   {% endfor %}
 </ul>
