@@ -28,6 +28,12 @@ J'ai un peu touché à tout le domaine technique pour osa, j'ai travaillé sur d
 
 Si vous êtes intéressés par la partie réseaux et tools, j'explique un peu plus bas des bouts de codes que j'ai utilisés pour développer OSA.
 
+<html>
+<div style="text-align: center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rDhEL9wTosI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+</html>
+
 ---
 
 # Technique
