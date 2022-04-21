@@ -1,12 +1,3 @@
-navbar_entries:
-  - title: about
-    url: about
-
-  - title: blog
-    url: blog
-
-  - title: website
-    url: https://www.abhinav.co
 
 project_entries:
   - title: OverStrike-Arena
@@ -24,7 +15,7 @@ project_entries:
   - title : LIS
     url: https://modacless.itch.io/lost
     desc: version moderne du jeux astéroids
-    imageUrl : https://modacless.github.io/images/Lost/Lost.gif
+    imageUrl : https://modacless.github.io/images/Lost/Lost.png
 
   - title: Shunader
     url: https://modacless.itch.io/shunader
