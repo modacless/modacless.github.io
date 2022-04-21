@@ -20,7 +20,7 @@ project_entries:
   - title: Shunader
     url: https://modacless.itch.io/shunader
     desc: prototype jeux d'aventure
-    #imageUrl : https://modacless.github.io/images/Shunader/Shuander-Pres.png
+    icon : https://modacless.github.io/images/Shunader/MonsterSlime.gif
 
   - title : Gta rétro
     url: https://modacless.itch.io/lost-in-space
