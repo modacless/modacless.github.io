@@ -8,18 +8,18 @@ project_entries:
 
   - title: Chef Duel
     url : chef-duel
-    desc : Prototype de jeux de carte
+    desc : Prototype de jeu de cartes
     imageUrl: https://modacless.github.io/images/CryptoCook/Logo.png
     highlight: NEW
 
   - title : LIS
     url: https://modacless.itch.io/lost
-    desc: version moderne du jeux astéroids
+    desc: Version moderne du jeux astéroids
     imageUrl : https://modacless.github.io/images/Lost/Lost.png
 
   - title: Shunader
     url: https://modacless.itch.io/shunader
-    desc: prototype jeux d'aventure
+    desc: Prototype de jeu d'aventure
     icon : https://modacless.github.io/images/Shunader/MonsterSlime.gif
 
   - title : Gta rétro
