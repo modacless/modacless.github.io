@@ -7,17 +7,15 @@
       {% endif %}
       <a href="{{ item.url }}">
         <span class="header">
-
-          <span style="float:left;">
             {{ item.title }}
-            <p></p>
-          </span>
 
           {% if item.icon %}
+          <p>
           <div class = "right-picture">
             <img src="{{item.icon}}" style="float: right; " >
           </div>
-        
+          </p>
+
           {% endif %}
 
           {% if item.highlight %}
