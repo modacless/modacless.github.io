@@ -21,18 +21,20 @@ project_entries:
     imageUrl: https://modacless.github.io/images/CryptoCook/Logo.png
     highlight: NEW
 
+  - title : LIS
+    url: https://modacless.itch.io/lost
+    desc: version moderne du jeux astéroids
+    imageUrl :
+
   - title: Shunader
     url: https://modacless.itch.io/shunader
     desc: prototype jeux d'aventure
     imageUrl : https://modacless.github.io/images/Shunader/Shuander-Pres.png
 
-  - title : LIS
-    url: https://modacless.itch.io/lost
-    desc: version moderne du jeux astéroids
-
   - title : Gta rétro
     url: https://modacless.itch.io/lost-in-space
     desc: Prototype des mécaniques d'un jeu vieux gta
+    icon : 
 
 old_project_entries:
   - title: PoorWireShark
