@@ -25,7 +25,7 @@ project_entries:
   - title : Gta rétro
     url: https://modacless.itch.io/lost-in-space
     desc: Prototype des mécaniques d'un jeu vieux gta
-    icon : 
+    icon : https://modacless.github.io/images/GtaLike/Gta-Walk.gif
 
 old_project_entries:
   - title: PoorWireShark
