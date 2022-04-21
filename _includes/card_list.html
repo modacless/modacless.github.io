@@ -5,13 +5,12 @@
       {% if item.imageUrl %}
       <img class="card-img-top" src="{{ item.imageUrl }}" alt="Card image">
       {% endif %}
-      {% if item.icon %}
-      <img class="card-img-right" src="{{ item.imageUrl }}" alt="Card image">
-      {% endif %}
       <a href="{{ item.url }}">
         <span class="header">
           {{ item.title }}
-          
+          {% if item.icon %}
+          <img class="card-img-right" src="{{ item.icon }}" alt="Card image">
+          {% endif %}
 
           {% if item.highlight %}
             <mark>{{ item.highlight }}</mark>
