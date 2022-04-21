@@ -24,6 +24,7 @@ project_entries:
   - title: Shunader
     url: https://modacless.itch.io/shunader
     desc: prototype jeux d'aventure
+    imageUrl : https://modacless.github.io/images/images/Shunader/Shuander-Pres.png
 
   - title : LIS
     url: https://modacless.itch.io/lost
