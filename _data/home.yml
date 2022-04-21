@@ -12,11 +12,13 @@ project_entries:
   - title: OverStrike-Arena
     url: overstrike-arena
     desc: Jeux multijoueur 2v2, compétitif
+    imageUrl: https://modacless.github.io/images/OverStrike/overstrikeArena.png
     highlight: NEW
 
   - title: Chef Duel
     url : cryptocook
     desc : Prototype de jeux de carte
+    imageUrl: https://modacless.github.io/images/CryptoCook/Logo.png
 
   - title: Shunader
     url: https://modacless.itch.io/shunader
