@@ -25,9 +25,10 @@ ul.horizontal-list {
   text-align: center;
   font-size: 1em;
   align-items: center;
-
   margin-bottom: 0.8em;
   border-radius: 0.8em;
+
+  clear: right;
 
   .header {
     color: var(--links);
