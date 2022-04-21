@@ -6,11 +6,11 @@
       <img class="card-img-top" src="{{ item.imageUrl }}" alt="Card image">
       {% endif %}
       <a href="{{ item.url }}">
-        <span class="header">
+        <span class="header" style = "float: left">
           {{ item.title }}
           {% if item.icon %}
           <div class = "right-picture">
-            <img src="{{item.icon}}">
+            <img src="{{item.icon}}" style="float: right; " >
           </div>
         
           {% endif %}
