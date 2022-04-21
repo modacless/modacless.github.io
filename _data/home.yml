@@ -7,7 +7,7 @@ project_entries:
     highlight: Soon on Steam
 
   - title: Chef Duel
-    url : ChefDuel
+    url : chefduel
     desc : Prototype de jeux de carte
     imageUrl: https://modacless.github.io/images/CryptoCook/Logo.png
     highlight: NEW
