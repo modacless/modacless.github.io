@@ -24,7 +24,7 @@ project_entries:
   - title : LIS
     url: https://modacless.itch.io/lost
     desc: version moderne du jeux astéroids
-    imageUrl :
+    imageUrl : https://modacless.github.io/images/Lost/Lost.gif
 
   - title: Shunader
     url: https://modacless.itch.io/shunader
