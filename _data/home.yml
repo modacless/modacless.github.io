@@ -39,6 +39,9 @@ footer_entries:
   - title: github
     url: https://github.com/modacless
 
+    -title: Linkedin
+    url: https://www.linkedin.com/in/jean-baptiste-oses-8b712a237/
+
 
 misc_entries:
   - title: this is an example vertical list
