@@ -14,7 +14,9 @@ layout: post
 
 # Introduction
 
-Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affrontent dans une arène avec un "punch", afin d'expulser leurs adversaires, et de marquer un but. *Bientot sur Steam !*
+Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affrontent dans une arène avec un "punch", afin d'expulser leurs adversaires, et de marquer un but.
+
+Page Steam : https://store.steampowered.com/app/1937550/Overstrike_Arena/
 
 ### Equipe
 

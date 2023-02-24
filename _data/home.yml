@@ -4,7 +4,7 @@ project_entries:
     url: overstrike-arena
     desc: Jeu multijoueur 2v2, compétitif
     imageUrl: https://modacless.github.io/images/OverStrike/overstrikeArena.png
-    highlight: Soon on Steam
+    highlight: Release On Steam
 
   - title: Chef Duel
     url : chef-duel
