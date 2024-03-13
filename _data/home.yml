@@ -1,7 +1,7 @@
 
 project_entries:
   - title: Farmobot
-    url: Farmobot
+    url: farmobot
     desc: Jeux multijoueur coopératif
     imageUrl: https://modacless.github.io/images/Farmobot/FarmobotLogo.png
     highlight: NEW
