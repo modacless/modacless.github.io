@@ -1,6 +1,5 @@
 
 project_entries:
-
   - title: Farmobot
     url: Farmobot
     desc: Jeux multijoueur coopératif
@@ -11,7 +10,7 @@ project_entries:
     url: overstrike-arena
     desc: Jeu multijoueur 2v2, compétitif
     imageUrl: https://modacless.github.io/images/OverStrike/overstrikeArena.png
-    highlight: Release On Steam
+    highlight: Released On Steam
 
   - title: Chef Duel
     url : chef-duel
