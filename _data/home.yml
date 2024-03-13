@@ -1,5 +1,12 @@
 
 project_entries:
+
+  -title: Farmobot
+    url: Farmobot
+    desc: Jeux multijoueur coopératif
+    imageUrl: https://modacless.github.io/images/Farmobot/FarmobotLogo.png
+    highlight: NEW
+
   - title: OverStrike-Arena
     url: overstrike-arena
     desc: Jeu multijoueur 2v2, compétitif
@@ -10,7 +17,6 @@ project_entries:
     url : chef-duel
     desc : Prototype de jeu de cartes
     imageUrl: https://modacless.github.io/images/CryptoCook/Logo.png
-    highlight: NEW
 
   - title : LIS
     url: https://modacless.itch.io/lost
