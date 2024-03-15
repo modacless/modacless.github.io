@@ -14,7 +14,7 @@ layout: post
 
 # Introduction
 
-Overstrike Arena est un fps multijoueur, en 2 contre 2, ou les joueurs s'affrontent dans une arène avec un "punch", afin d'expulser leurs adversaires, et de marquer un but.
+Overstrike Arena est un fps multijoueur, en 2 contre 2, où les joueurs s'affrontent dans une arène avec un "punch", afin d'expulser leurs adversaires, et de marquer un but.
 
 Page Steam : https://store.steampowered.com/app/1937550/Overstrike_Arena/
 
@@ -52,15 +52,15 @@ Si vous êtes intéressés par la partie réseaux et tools, j'explique un peu pl
 
 Pour ma première expérience dans le monde du multijoueur online, je voulais apprendre à utiliser une technologie gratuite, tout en me permettant d'acquérir une compréhension sur les API réseaux de haut niveau. Mon choix s'est porté sur [Mirror](https://mirror-networking.com/), une API gratuite et open source.
 
-Etant un jeux ou la vitesse, et la maitrise du personnage est la clef des mécanismes, nous avons ajouté une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleur customisation, et de meilleurs performance sur la position des objets "online".
+Etant un jeux ou la vitesse, et la maitrise du personnage sont les clefs des mécanismes, nous avons choisi une librairie, [Smooth Sync](https://forum.unity.com/threads/released-smooth-sync-smoothly-network-rigidbodies-and-transforms-while-reducing-bandwidth.486605/), ajoutant des scripts permettant une meilleure customisation, et de meilleurs performances sur la position des objets "online".
 
-Le jeux va donc utiliser une structure server/client, ou le client possède l'autorité, et le server est un joueur, qui joue comme les autres clients.
+Le jeux va donc utiliser une structure server/client, où le client possède l'autorité, et le server est un joueur, qui joue comme les autres clients.
 
 ## Lobby
 
 Pour la création du lobby, nous allons utiliser un template de NetworkManager que l'on va modifier. Le joueur décidant d'héberger, va attendre que les joueurs se connectent au server.
 
-L'objectif du lobby dans notre jeu était de pouvoir voir le pseudo des autres joueurs, de pouvoir changer d'équipe et de pouvoir se mettre "prêt", pour lancer la partie.
+L'objectif du lobby dans notre jeu était de voir le pseudo des autres joueurs, de pouvoir changer d'équipe et de pouvoir se mettre "prêt", pour lancer la partie.
 
 Quand un joueur se connecte au server, il lui envoi un message contenant son pseudo.
 ```c#
@@ -80,7 +80,7 @@ public override void OnClientConnect(NetworkConnection conn)//Quand le client se
     }
 ```
 
-Le serveur le reçoit, il crée un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objects synchronisés ne pouvant être créé que par le serveur), il l'identifie ensuite en tant que joueur, et le lie à une connexion. Le serveur met ensuite à jour, sa liste interne des joueurs connecté au lobby, très utile pour vérifier quand les joueurs seront prêts.
+Le serveur le reçoit, il crée un gameObject représentant le joueur, et lui transmet le pseudo reçu (Les objets synchronisés ne pouvant être créés que par le serveur), il l'identifie ensuite en tant que joueur, et le lie à une connexion. Le serveur met ensuite à jour, sa liste interne des joueurs connectés au lobby, très utile pour vérifier quand les joueurs seront prêts.
 
 ```c#
 
@@ -109,7 +109,7 @@ Le gameobject représentant un joueur, possède un networkTransform, ça lui per
 
 Intéressons-nous aux fonctionnalités du "joueur lobby". 
 
-Nous avons 3 variables déclarées comme des variables synchronisées.  Une variable synchronisée, peut-être changé depuis le serveur, et réplique ce changement à travers tous les clients. On peut y rajouter un "hook", pour pouvoir utiliser une fonction, à chaque fois que la variable change.
+Nous avons 3 variables déclarées comme des variables synchronisées.  Une variable synchronisée, peut-être changée depuis le serveur, et réplique ce changement à travers tous les clients. On peut y rajouter un "hook", pour pouvoir utiliser une fonction, à chaque fois que la variable change.
 
 ```c#
     [SyncVar(hook =nameof(setReadyUI))]
@@ -120,10 +120,10 @@ Nous avons 3 variables déclarées comme des variables synchronisées.  Une vari
     public int team;
 ```
 
-L'attribut Command, va déclencher la fonction de l'objet contrôlé par le client, sur l'object contrôlé par ce client sur le serveur.
+L'attribut Command, va déclencher la fonction de l'objet contrôlé par le client, sur l'objet contrôlé par ce client sur le serveur.
 Donc, si l'on combine cet attribut avec les variables synchrones, on peut répliquer un changement de variable depuis un client, sur tous les autres clients.
 
-Les fonctions ButtonLeft et ButtonRight sont rattachés à un unityEvent, sur des boutons, et se déclenche quand un joueur appuie sur une flèche. Ainsi quand un client appuie sur un bouton, il demande au serveur d'exécuter cette fonction, ce qui va changer une variable synchronisée et appeler sa fonction "hook", qui va changer visuellement l'équipe du client, pour tous les joueurs.
+Les fonctions ButtonLeft et ButtonRight sont rattachées à un unityEvent, sur des boutons, et se déclenchent quand un joueur appuie sur une flèche. Ainsi quand un client appuie sur un bouton, il demande au serveur d'exécuter cette fonction, ce qui va changer une variable synchronisée et appeler sa fonction "hook", qui va changer visuellement l'équipe du client, pour tous les joueurs.
 
 ```c#
 [Command]
@@ -241,9 +241,9 @@ On donc réussit à avoir notre joueur répliquer, avec un pseudo qui est lisibl
 
 Une fois que l'host lance la partie, chaque client doit charger la nouvelle map. Il doit attendre que chaque joueur finisse de charger le monde, pour commencer une partie. Mirror nous offre une booléenne pour connaître l'état du joueur `isReady`. Si la variable est égale à false, le joueur est en train de charger. Au chargement de la map, l'host va donc attendre que tous les clients aient fini de charger, avant "d'activer" le joueur, et de commencer une partie.
 
-Les attributs Server et ServerCallback, vont permettre de spécifier des fonctions qui ne peuvent être lancer que par le serveur. Etant donnée que c'est le serveur qui attend les joueurs, ces fonctions ne peuvent être qu'utilisées par lui.
+Les attributs Server et ServerCallback, vont permettre de spécifier des fonctions qui ne peuvent être lancées que par le serveur. Etant donné que c'est le serveur qui attend les joueurs, ces fonctions ne peuvent être qu'utilisées par lui.
 
-On parcourt ici les valeurs d'un dictionnaire disponible côté serveur, 
+On parcourt ici les valeurs d'un dictionnaire disponible côté serveur,  
 
 ```c#
  [ServerCallback]
@@ -436,7 +436,7 @@ On va utiliser des coroutines afin de créer une chronologie sur les actions li�
 
 ## Outil et Analyse
 
-Durant mon travail sur ce projet, j'ai dû créer quelques outils pour pouvoir répondres à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
+Durant mon travail sur ce projet, j'ai dû créer quelques outils pour pouvoir répondre à certaines attentes des games designers. On voulait par exemple pouvoir analyser le déplacement des joueurs que l'on faisait tester.
 
 J'ai donc créé poorAnalytics, un petit outil qui me permet de dessiner le déplacement des joueurs en fonction d'une manche.
 
@@ -448,13 +448,13 @@ J'ai donc créé poorAnalytics, un petit outil qui me permet de dessiner le dép
 
 On peut décomposer cet outil en 2 scripts, un Writer, un Reader.
 
-Le "writer", va écrire dans un fichier text, toutes les positions des objets stocker dans la liste analyticGameObjectPosition;
+Le "writer", va écrire dans un fichier text, toutes les positions des objets stockés dans la liste analyticGameObjectPosition;
 Afin de pouvoir utiliser ces données plus tard, je mets en place une architecture simple dans le fichier texte :
 
 * `//` permet de définir que ce n'est pas une data brut
 * `-` différencie chaque joueur
-* `;` définie la fin de la ligne
-* `|` Permet de différencier les coordonnées (x,y,z)
+* `;` défini la fin de la ligne
+* `|` permet de différencier les coordonnées (x,y,z)
 * `++New Round++` Flag, qui permet au Reader de détecter un nouveau round
 
 ```c#
@@ -549,7 +549,7 @@ Afin de pouvoir utiliser ces données plus tard, je mets en place une architectu
 ```
 
 Le "Reader", récupère le path du fichier texte, et grâce à un bouton (Draw in world), va lancer la fonction `LoadKeyPositions`, qui s'occupe de parser et de stocker les positions dans une liste 3 dimensions.
-Chaque dimension correspondant à un des paramètres de la partie -> Quel manche, Quel joueur, ses positions.
+Chaque dimension correspondant à un des paramètres de la partie -> Quelle manche, Quel joueur, ses positions.
 
 
 ```c#
@@ -668,5 +668,5 @@ On va alors dessiner une ligne entre les coordonnées de chaque joueur en foncti
 
 On utilise ici un fichier texte pour stocker les données afin de  pouvoir l'échanger, le stocker, le récupérer plus facilement. On peut aussi essayer d'automatiser l'envoi de ce fichier sur un server. À la fin d'une partie, l'hôte pourrait envoyer automatiquement le texte sur un server que l'on héberge, ça permettrait à mon équipe d'avoir facilement accès à toutes les données des joueurs ayant essayé le jeu online.
 
-Il y a beaucoup de moyens pour améliorer cet outil, l'utilisation d'une liste 3d, n'est vraiment pas une bonne pratique en informatique par exemple. Un onceInit, totalement inutile, qui peut-être remplacé par la création d'une coroutine au start, qui se met en attente, tant que les conditions requises n'ont pas terminé.
+Il y a beaucoup de moyens pour améliorer cet outil, l'utilisation d'une liste 3d, n'est vraiment pas une bonne pratique en informatique par exemple. Un onceInit, totalement inutile, qui peut-être remplacé par la création d'une coroutine au start, qui se met en attente, tant que les conditions requises ne sont pas terminés.
 
